@@ -1,18 +1,20 @@
 import crypto from "crypto";
 
-const inputUserPassword = "ichiagkumargithnub$twitter.com";
-const hashValueOFPassword = crypto
-  .createHash("sha256")
-  .update(inputUserPassword)
-  .digest("hex");
-
-const preHashStartValue = "0000";
-
-for (let i = 0; i <= hashValueOFPassword.length; i++) {
-  const matchfistFour = hashValueOFPassword.substring(0, 4);
-  console.log(matchfistFour);
-  if (matchfistFour === preHashStartValue) {
-    console.log("match found", matchfistFour);
+const initValue = 0;
+const prefixValue = "0000";
+for (let i = initValue; i < 10000000; i++) {
+  let hashForEachIncrementValue = crypto
+    .createHash("sha256")
+    .update(prefixValue + i)
+    .digest("hex");
+  const isMatch = hashForEachIncrementValue.startsWith("0000");
+  if (isMatch) {
+    console.log(
+      "Matched Found ",
+      `for this value ${hashForEachIncrementValue}\n for this input ${
+        prefixValue + i
+      }`
+    );
     break;
   }
 }
